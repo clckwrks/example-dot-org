@@ -40,12 +40,5 @@ initHook :: ClckState
 initHook clckState cc =
     do let p = plugins clckState
        initPlugin p "" clckPlugin
-{-
-       (Just clckShowFn) <- getPluginRouteFn p "clck"
-       let showFn = \url params -> clckShowFn url []
-       clckState' <- execClckT showFn clckState $ do dm <- defaultAdminMenu
-                                                     mapM_ addAdminMenu dm
--}
-
        setTheme p (Just theme)
        return (clckState, cc)
