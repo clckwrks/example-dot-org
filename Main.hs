@@ -14,11 +14,11 @@ import qualified Data.Text as Text
 import Happstack.Server
 import Web.Plugin.Core
 
-clckwrksConfig :: ClckwrksConfig ClckURL
+clckwrksConfig :: ClckwrksConfig
 clckwrksConfig = ClckwrksConfig
     { clckHostname        = "localhost"
+    , clckHidePort        = False
     , clckPort            = 8000
-    , clckURL             = id
     , clckJQueryPath      = ""
     , clckJQueryUIPath    = ""
     , clckJSTreePath      = ""
@@ -35,8 +35,8 @@ main :: IO ()
 main = simpleClckwrks clckwrksConfig
 
 initHook :: ClckState
-         -> ClckwrksConfig ClckURL
-         -> IO (ClckState, ClckwrksConfig ClckURL)
+         -> ClckwrksConfig
+         -> IO (ClckState, ClckwrksConfig)
 initHook clckState cc =
     do let p = plugins clckState
        initPlugin p "" clckPlugin
