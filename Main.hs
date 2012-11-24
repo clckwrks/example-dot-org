@@ -24,7 +24,6 @@ clckwrksConfig = ClckwrksConfig
     , clckJQueryUIPath    = ""
     , clckJSTreePath      = ""
     , clckJSON2Path       = ""
-    , clckThemeDir        = ""
     , clckStaticDir       = "../clckwrks/static"
     , clckTopDir          = Nothing
     , clckEnableAnalytics = False
