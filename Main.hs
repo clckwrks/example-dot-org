@@ -9,10 +9,11 @@ import Clckwrks.Plugin
 import Control.Applicative ((<$>))
 import Control.Monad.Trans
 import BootstrapTheme
-import qualified Data.Map as Map
+import qualified Data.Map  as Map
+import Data.Text           (Text)
 import qualified Data.Text as Text
 import Happstack.Server
-import Web.Plugin.Core
+import Web.Plugins.Core    (initPlugin, setTheme)
 
 clckwrksConfig :: ClckwrksConfig
 clckwrksConfig = ClckwrksConfig
@@ -28,17 +29,18 @@ clckwrksConfig = ClckwrksConfig
     , clckStaticDir       = "../clckwrks/static"
     , clckTopDir          = Nothing
     , clckEnableAnalytics = False
-    , clckInitHook        = initHook
+    , clckInitHook        = initHook "http://localhost:8000"
     }
 
 main :: IO ()
 main = simpleClckwrks clckwrksConfig
 
-initHook :: ClckState
+initHook :: Text
+         -> ClckState
          -> ClckwrksConfig
          -> IO (ClckState, ClckwrksConfig)
-initHook clckState cc =
+initHook baseURI clckState cc =
     do let p = plugins clckState
-       initPlugin p "" clckPlugin
+       initPlugin p baseURI clckPlugin
        setTheme p (Just theme)
        return (clckState, cc)
