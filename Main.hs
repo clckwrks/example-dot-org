@@ -2,12 +2,20 @@
 module Main where
 
 import Clckwrks            (ClckwrksConfig(..), ClckState, plugins)
+import Clckwrks.GetOpts    (parseArgs)
 import Clckwrks.Server     (simpleClckwrks)
 import Clckwrks.Plugin     (clckPlugin)
 import BootstrapTheme      (theme)
 import Data.Text           (Text)
 import Web.Plugins.Core    (initPlugin, setTheme)
+import System.Environment  (getArgs)
 
+------------------------------------------------------------------------------
+-- ClckwrksConfig
+------------------------------------------------------------------------------
+
+-- | default configuration. Most of these options can be overridden on
+-- the command-line accept for 'clckInitHook'.
 clckwrksConfig :: ClckwrksConfig
 clckwrksConfig = ClckwrksConfig
     { clckHostname        = "localhost"
@@ -17,14 +25,14 @@ clckwrksConfig = ClckwrksConfig
     , clckJQueryUIPath    = ""
     , clckJSTreePath      = ""
     , clckJSON2Path       = ""
-    , clckStaticDir       = "../clckwrks/static"
     , clckTopDir          = Nothing
     , clckEnableAnalytics = False
-    , clckInitHook        = initHook "http://localhost:8000"
+    , clckInitHook        = initHook
     }
 
-main :: IO ()
-main = simpleClckwrks clckwrksConfig
+------------------------------------------------------------------------------
+-- ClckwrksConfig
+------------------------------------------------------------------------------
 
 initHook :: Text
          -> ClckState
@@ -35,3 +43,12 @@ initHook baseURI clckState cc =
        _mError <- initPlugin p baseURI clckPlugin
        setTheme p (Just theme)
        return (clckState, cc)
+
+
+------------------------------------------------------------------------------
+-- main
+------------------------------------------------------------------------------
+
+main :: IO ()
+main = simpleClckwrks clckwrksConfig
+
