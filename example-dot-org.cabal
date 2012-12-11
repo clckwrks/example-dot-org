@@ -10,6 +10,11 @@ category:            Clckwrks
 build-type:          Simple
 cabal-version:       >=1.8
 
+source-repository head
+    type:     darcs
+    subdir:   example-dot-org
+    location: http://hub.darcs.net/stepcut/clckwrks
+
 Executable             example-dot-org-server
   main-is:             Main.hs
   ghc-options:         -threaded -O2
