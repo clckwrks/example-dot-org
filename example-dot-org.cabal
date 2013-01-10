@@ -26,4 +26,4 @@ Executable             example-dot-org-server
                        hsp                      == 0.7.*,
                        mtl                      >= 2.0 && < 2.2,
                        text                     == 0.11.*,
-                       web-plugins              == 0.1.*
+                       web-plugins              == 0.2.*
