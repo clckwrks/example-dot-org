@@ -22,6 +22,7 @@ clckwrksConfig = ClckwrksConfig
     { clckHostname        = "localhost"  -- hostname of the server
     , clckHidePort        = False        -- should the port number be used in generated URLs
     , clckPort            = 8000         -- port to listen on
+    , clckTLS             = Nothing      -- disable TLS by default
     , clckJQueryPath      = "../jquery"  -- directory containing 'jquery.js'
     , clckJQueryUIPath    = ""           -- directory containing 'jquery.js'
     , clckJSTreePath      = "../jstree"  -- directory containing 'jquery.jstree.js'
@@ -49,7 +50,7 @@ initHook :: Text           -- ^ baseURI, e.g. http://example.org
          -> IO (ClckState, ClckwrksConfig)
 initHook baseURI clckState cc =
     do let p = plugins clckState
-       _mError <- initPlugin p baseURI clckPlugin
+       _mError <- initPlugin p "" clckPlugin
        setTheme p (Just theme)
        return (clckState, cc)
 
@@ -61,4 +62,4 @@ main :: IO ()
 main =
     do args <- getArgs
        f    <- parseArgs (clckwrksOpts clckwrksConfig) args
-       simpleClckwrks (f clckwrksConfig)
+       simpleClckwrks =<< f clckwrksConfig
