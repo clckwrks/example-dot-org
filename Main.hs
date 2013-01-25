@@ -1,13 +1,14 @@
 {-# LANGUAGE FlexibleContexts, PackageImports, OverloadedStrings #-}
 module Main where
 
-import Clckwrks            (ClckwrksConfig(..), ClckState, plugins)
-import Clckwrks.GetOpts    (parseArgs, clckwrksOpts)
-import Clckwrks.Server     (simpleClckwrks)
-import Clckwrks.Plugin     (clckPlugin)
-import Data.Text           (Text)
-import Web.Plugins.Core    (initPlugin, setTheme)
-import System.Environment  (getArgs)
+import Clckwrks             (ClckwrksConfig(..), ClckState, plugins)
+import Clckwrks.GetOpts     (parseArgs, clckwrksOpts)
+import Clckwrks.Server      (simpleClckwrks)
+import Clckwrks.Plugin      (clckPlugin)
+import Clckwrks.Page.Plugin (pagePlugin)
+import Data.Text            (Text)
+import Web.Plugins.Core     (initPlugin, setTheme)
+import System.Environment   (getArgs)
 -- we use 'PackageImports' because the 'Theme' module is supplied by multiple packages
 import "clckwrks-theme-bootstrap" Theme (theme)
 
@@ -50,7 +51,8 @@ initHook :: Text           -- ^ baseURI, e.g. http://example.org
          -> IO (ClckState, ClckwrksConfig)
 initHook baseURI clckState cc =
     do let p = plugins clckState
-       _mError <- initPlugin p "" clckPlugin
+       initPlugin p "" clckPlugin
+       initPlugin p "" pagePlugin
        setTheme p (Just theme)
        return (clckState, cc)
 
