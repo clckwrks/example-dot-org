@@ -10,7 +10,8 @@ import Data.Text            (Text)
 import Web.Plugins.Core     (initPlugin, setTheme)
 import System.Environment   (getArgs)
 -- we use 'PackageImports' because the 'Theme' module is supplied by multiple packages
-import "clckwrks-theme-bootstrap" Theme (theme)
+-- import "clckwrks-theme-bootstrap" Theme (theme)
+import Theme (theme)
 
 ------------------------------------------------------------------------------
 -- ClckwrksConfig
