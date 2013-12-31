@@ -20,9 +20,9 @@ Executable             example-dot-org-server
   ghc-options:         -threaded -O2 -with-rtsopts=-I0
   build-tools:         hsx2hs
   build-depends:       base                     > 4 && <5,
-                       clckwrks                 >= 0.18 && < 0.21,
-                       clckwrks-theme-bootstrap == 0.2.*,
-                       clckwrks-plugin-page     >= 0.2.0 && < 0.3,
+                       clckwrks                 >= 0.21 && < 0.22,
+                       clckwrks-theme-bootstrap == 0.3.*,
+                       clckwrks-plugin-page     >= 0.3.0 && < 0.4,
                        containers               >= 0.4 && < 0.6,
                        happstack-server         >= 7.0 && < 7.4,
                        hsp                      >= 0.9 && < 0.11,
