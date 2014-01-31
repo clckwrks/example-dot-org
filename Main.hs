@@ -1,7 +1,7 @@
 {-# LANGUAGE FlexibleContexts, PackageImports, OverloadedStrings #-}
 module Main where
 
-import Clckwrks             (ClckwrksConfig(..), ClckState, plugins)
+import Clckwrks             (ClckwrksConfig(..), ClckState, TLSSettings(..), plugins)
 import Clckwrks.GetOpts     (parseArgs, clckwrksOpts)
 import Clckwrks.Server      (simpleClckwrks)
 import Clckwrks.Plugin      (clckPlugin)
@@ -17,6 +17,14 @@ import Theme (theme)
 -- ClckwrksConfig
 ------------------------------------------------------------------------------
 
+tls :: TLSSettings
+tls = TLSSettings
+      { clckTLSPort = 8443
+      , clckTLSCert = "ssl/localhost.crt"
+      , clckTLSKey  = "ssl/localhost.key"
+      , clckTLSCA   = Nothing
+      }
+
 -- | default configuration. Most of these options can be overridden on
 -- the command-line accept for 'clckInitHook'.
 clckwrksConfig :: ClckwrksConfig
@@ -24,7 +32,7 @@ clckwrksConfig = ClckwrksConfig
     { clckHostname        = "localhost"  -- hostname of the server
     , clckHidePort        = False        -- should the port number be used in generated URLs
     , clckPort            = 8000         -- port to listen on
-    , clckTLS             = Nothing      -- disable TLS by default
+    , clckTLS             = Just tls     -- TLS settings
     , clckJQueryPath      = "../jquery"  -- directory containing 'jquery.js'
     , clckJQueryUIPath    = ""           -- directory containing 'jquery.js'
     , clckJSTreePath      = "../jstree"  -- directory containing 'jquery.jstree.js'
