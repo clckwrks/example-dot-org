@@ -5,6 +5,7 @@ import Clckwrks             (ClckwrksConfig(..), ClckState, TLSSettings(..), plu
 import Clckwrks.GetOpts     (parseArgs, clckwrksOpts)
 import Clckwrks.Server      (simpleClckwrks)
 import Clckwrks.Plugin      (clckPlugin)
+import Clckwrks.Authenticate.Plugin (authenticatePlugin)
 import Clckwrks.Page.Plugin (pagePlugin)
 import Data.Text            (Text)
 import Web.Plugins.Core     (initPlugin, setTheme)
@@ -60,6 +61,7 @@ initHook :: Text           -- ^ baseURI, e.g. http://example.org
          -> IO (ClckState, ClckwrksConfig)
 initHook baseURI clckState cc =
     do let p = plugins clckState
+       initPlugin p "" authenticatePlugin
        initPlugin p "" clckPlugin
        initPlugin p "" pagePlugin
        setTheme p (Just theme)
