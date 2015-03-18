@@ -20,7 +20,7 @@ Executable             example-dot-org-server
   build-tools:         hsx2hs
   build-depends:       base                     > 4      && < 5,
                        clckwrks                 >= 0.23  && < 0.24,
-                       clckwrks-theme-bootstrap == 0.3.*,
+                       clckwrks-theme-bootstrap == 0.4.*,
                        clckwrks-plugin-page     >= 0.3.0 && < 0.4,
                        containers               >= 0.4   && < 0.6,
                        happstack-server         >= 7.0   && < 7.5,

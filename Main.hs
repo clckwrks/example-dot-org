@@ -61,7 +61,7 @@ initHook :: Text           -- ^ baseURI, e.g. http://example.org
          -> IO (ClckState, ClckwrksConfig)
 initHook baseURI clckState cc =
     do let p = plugins clckState
-       initPlugin p "" authenticatePlugin
+       initPlugin p baseURI authenticatePlugin
        initPlugin p "" clckPlugin
        initPlugin p "" pagePlugin
        setTheme p (Just theme)
