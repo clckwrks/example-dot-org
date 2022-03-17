@@ -10,7 +10,7 @@ import Clckwrks.Page.Plugin (pagePlugin)
 import Data.Text            (Text)
 import Web.Plugins.Core     (initPlugin, setTheme)
 import System.Environment   (getArgs)
--- we use 'PackageImports' because the 'Theme' module is supplied by multiple packages
+-- we can use 'PackageImports' if you have multiple themes installed and the 'Theme' module is supplied by multiple packages
 -- import "clckwrks-theme-bootstrap" Theme (theme)
 import Theme (theme)
 
@@ -18,14 +18,18 @@ import Theme (theme)
 -- ClckwrksConfig
 ------------------------------------------------------------------------------
 
+{-
+-- | to enable TLS/https you need to create some SSL keys and also add this
+-- to the clckTLS field of clckwrksConfig.
 tls :: TLSSettings
 tls = TLSSettings
       { clckTLSPort = 8443
-      , clckTLSCert = "ssl/localhost.crt"
-      , clckTLSKey  = "ssl/localhost.key"
+      , clckTLSCert = Just "ssl/localhost.crt"
+      , clckTLSKey  = Just "ssl/localhost.key"
       , clckTLSCA   = Nothing
+      , clckTLSRev  = False
       }
-
+-}
 -- | default configuration. Most of these options can be overridden on
 -- the command-line accept for 'clckInitHook'.
 clckwrksConfig :: ClckwrksConfig
@@ -62,8 +66,8 @@ initHook :: Text           -- ^ baseURI, e.g. http://example.org
 initHook baseURI clckState cc =
     do let p = plugins clckState
        initPlugin p baseURI authenticatePlugin
-       initPlugin p "" clckPlugin
-       initPlugin p "" pagePlugin
+       initPlugin p baseURI clckPlugin
+       initPlugin p baseURI pagePlugin
        setTheme p (Just theme)
        return (clckState, cc)
 
